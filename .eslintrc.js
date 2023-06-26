@@ -23,6 +23,10 @@ module.exports = {
   rules: {
     'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
     'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
-    'space-before-function-paren': 'off'
+    'space-before-function-paren': 'off',
+    'no-multiple-empty-lines': 'off',
+    'comma-dangle': 'off',
+    'eol-last': 'off',
+    'vue/multi-word-component-names': 'off'
   }
 }
