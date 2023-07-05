@@ -13,5 +13,12 @@ generateNewStyle(store.getters.mainColor).then(newStyleText => {
 </script>
 
 <style>
+div#driver-highlighted-element-stage {
+  background: transparent !important;
+  outline: 5000px solid rgba(0,0,0,.75);
+}
 
+div#driver-page-overlay {
+  background: none !important;
+}
 </style>
