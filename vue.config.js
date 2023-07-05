@@ -1,3 +1,5 @@
+const NodePolyfillPlugin = require('node-polyfill-webpack-plugin')
+
 const path = require('path')
 function resolve(dir) {
   return path.join(__dirname, dir)
@@ -14,6 +16,9 @@ module.exports = {
         changeOrigin: true // 是否跨域
       }
     }
+  },
+  configureWebpack: {
+    plugins: [new NodePolyfillPlugin()]
   },
   chainWebpack(config) {
     // 设置 svg-sprite-loader
