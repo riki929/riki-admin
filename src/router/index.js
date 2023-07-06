@@ -1,8 +1,18 @@
 import {
   createRouter,
-  createWebHashHistory
+  createWebHistory
 } from 'vue-router'
 import layout from '@/layout'
+
+/**
+ * Note: 路由配置项
+ *
+ * hidden: true                     // 当设置 true 的时候该路由不会再侧边栏出现 如401，login等页面，或者如一些编辑页面/edit/1
+ * meta : {
+    title: 'title'                  // 设置该路由在侧边栏和面包屑中展示的名字
+    icon: 'svg-name'                // 设置该路由的图标，对应路径src/assets/icons/svg
+  }
+ */
 
 const privateRoutes = [
   {
@@ -109,13 +119,13 @@ const publicRoutes = [
   },
   {
     path: '/',
-    // 注意：带有路径“/”的记录中的组件“默认”是一个不返回 Promise 的函数
     component: layout,
     redirect: '/profile',
     children: [
       {
         path: '/profile',
         name: 'profile',
+        hidden: true,
         component: () => import('@/views/profile/index'),
         meta: {
           title: 'profile',
@@ -137,7 +147,7 @@ const publicRoutes = [
 ]
 
 const router = createRouter({
-  history: createWebHashHistory(),
+  history: createWebHistory(),
   routes: [...publicRoutes, ...privateRoutes]
 })
 

@@ -7,5 +7,9 @@ export const TOKEN_TIMEOUT_VALUE = 2 * 3600 * 1000
 export const MAIN_COLOR = 'mainColor'
 // 默认色值
 export const DEFAULT_COLOR = '#409eff'
+// 菜单 Hover 色保存的 key
+export const TEXT_COLOR = 'textColor'
+// 菜单 Hover 时的默认色值
+export const DEFAULT_TEXT_COLOR = '#bfcbd9'
 // tags
 export const TAGS_VIEW = 'tagsView'

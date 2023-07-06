@@ -34,14 +34,12 @@ export default {
       if (payload.type === 'index') {
         // 删除当前
         state.tagsViewList.splice(payload.index, 1)
-        return
       } else if (payload.type === 'other') {
         // 删除其他
         state.tagsViewList.splice(
-          payload.index + 1,
-          state.tagsViewList.length - payload.index + 1
+          payload.index + 1
         )
-        state.tagsViewList.splice(0, payload.index)
+        state.tagsViewList.splice(1, payload.index - 1)
       } else if (payload.type === 'right') {
         // 删除右侧
         state.tagsViewList.splice(

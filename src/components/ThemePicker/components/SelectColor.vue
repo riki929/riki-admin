@@ -1,11 +1,26 @@
 <template>
   <el-dialog title="提示" :model-value="modelValue" @close="closed" width="22%">
-    <div class="center">
-      <p class="title">请选择主题颜色</p>
-      <el-color-picker
-        v-model="mColor"
-        :predefine="predefineColors"
-      ></el-color-picker>
+    <div>
+      <el-form ref="formRef" :model="form" label-width="80px" size="small">
+        <el-row>
+          <el-col :span="12">
+            <el-form-item label="主题色">
+              <el-color-picker
+                v-model="form.mColor"
+                :predefine="predefineColors"
+              ></el-color-picker>
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item label="菜单文字">
+              <el-color-picker
+                v-model="form.tColor"
+                :predefine="predefineTextColors"
+              ></el-color-picker>
+            </el-form-item>
+          </el-col>
+        </el-row>
+      </el-form>
     </div>
     <template #footer>
       <span class="dialog-footer">
@@ -21,6 +36,7 @@ import { defineProps, defineEmits, ref } from 'vue'
 import { useStore } from 'vuex'
 import { generateNewStyle, writeNewStyle } from '@/utils/theme'
 
+// 弹窗的双向绑定
 defineProps({
   modelValue: {
     type: Boolean,
@@ -28,8 +44,14 @@ defineProps({
   }
 })
 const emits = defineEmits(['update:modelValue'])
+/**
+ * 关闭弹窗
+ */
+const closed = () => {
+  emits('update:modelValue', false)
+}
 
-// 预定义色值
+// 预定义色值-主题色
 const predefineColors = [
   '#ff4500',
   '#ff8c00',
@@ -38,34 +60,35 @@ const predefineColors = [
   '#00ced1',
   '#1e90ff',
   '#c71585',
-  'rgba(255, 69, 0, 0.68)',
-  'rgb(255, 120, 0)',
-  'hsv(51, 100, 98)',
-  'hsva(120, 40, 94, 0.5)',
-  'hsl(181, 100%, 37%)',
-  'hsla(209, 100%, 56%, 0.73)',
-  '#c7158577'
+]
+// 预定义色值-菜单文字
+const predefineTextColors = [
+  '#303133',
+  '#606266',
+  '#909399',
+  '#C0C4CC',
 ]
 const store = useStore()
 // 默认色值
-const mColor = ref(store.getters.mainColor)
+const form = ref({
+  mColor: store.getters.mainColor,
+  tColor: store.getters.textColor
+})
 
-/**
- * 关闭
- */
-const closed = () => {
-  emits('update:modelValue', false)
-}
 /**
  * 确定
  * 1. 修改主题色
  * 2. 保存最新的主题色
  * 3. 关闭 dialog
  */
+const formRef = ref(null)
 const comfirm = async () => {
-  const newStyleText = await generateNewStyle(mColor.value)
+  // element-plus主题色覆盖
+  const newStyleText = await generateNewStyle(form.value.mColor)
   writeNewStyle(newStyleText)
-  store.commit('theme/setMainColor', mColor.value)
+  // 非 element-plus主题色覆盖
+  store.commit('theme/setMainColor', form.value.mColor)
+  store.commit('theme/setTextColor', form.value.tColor)
   closed()
 }
 </script>

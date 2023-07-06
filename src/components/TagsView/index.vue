@@ -15,7 +15,7 @@
       >
         {{ tag.title }}
         <i
-          v-show="!isActive(tag)"
+          v-show="!isActive(tag) && !isIndex(tag)"
           class="el-icon-close"
           @click.prevent.stop="onCloseClick(index)"
         />
@@ -41,6 +41,13 @@ const route = useRoute()
  */
 const isActive = tag => {
   return tag.path === route.path
+}
+
+/**
+ * 是否首页
+ */
+const isIndex = tag => {
+  return tag.path === '/profile'
 }
 
 /**
