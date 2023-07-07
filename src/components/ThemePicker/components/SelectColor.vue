@@ -1,7 +1,7 @@
 <template>
-  <el-dialog title="提示" :model-value="modelValue" @close="closed" width="22%">
+  <el-dialog title="提示" :model-value="modelValue" @close="closed" width="16%">
     <div>
-      <el-form ref="formRef" :model="form" label-width="80px" size="small">
+      <el-form ref="formRef" :model="form" label-width="80px">
         <el-row>
           <el-col :span="12">
             <el-form-item label="主题色">
