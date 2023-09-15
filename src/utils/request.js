@@ -12,7 +12,7 @@ const service = axios.create({
 service.interceptors.request.use(
   config => {
     // 添加 icode（慕课网课程使用）
-    config.headers.icode = '6173490CEBB5F349'
+    config.headers.icode = '33BCC18E195240FB'
     // 统一注入token
     if (store.getters.token) {
       // 如果token存在，注入token
